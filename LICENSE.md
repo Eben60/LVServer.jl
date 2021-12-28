@@ -1,4 +1,4 @@
-The LV_ZMQ_Jl.jl package is licensed under the MIT "Expat" License:
+The Jl_0mq_4Labview package is licensed under the MIT "Expat" License:
 
 Copyright (c) 2020: Eben60.
 
