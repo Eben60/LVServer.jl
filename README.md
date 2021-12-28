@@ -1,2 +1,2 @@
-# LabView0mqJl
-Calling Julia functions from LabVIEW (TM) using ZMQ
+# Jl_0mq_4Labview
+Auxillary package for Labview2Jl: Julia server for calling functions from LabVIEW (TM) using ZMQ
