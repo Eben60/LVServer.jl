@@ -28,12 +28,6 @@ function server_0mq4lv(fns=(;); initOK=false)
         fnlist = join(["built-in test functions", keys(fns)...], ", ")
     end
 
-    external_fns(;) = (;ext_fns=keys(fns))  # external_fns(;kwargs...)
-
-    # println(external_fns())
-    # println(external_fns)
-    # println(eval(:external_fns))
-
     global scriptexists
     global scriptOK
 
@@ -95,15 +89,12 @@ function server_0mq4lv(fns=(;); initOK=false)
                 try
                     pr = parse_REQ(bytesreceived)
                     fn = pr.fun2call
-                    if fn == :external_fns # why this??
-                        f = external_fns
-                        println("called external_fns")
-                    elseif haskey(fns, fn)
-                        println("called fns by key")
+                    if haskey(fns, fn)
                         f = fns[fn]
                     else
-                        println("called eval", fn)
                         f = eval(fn)
+                        # TODO used only to call version_this_pkg()
+                        # add it to (fns) and remove eval!
                     end
                     y = f(; pr.args...)
                     response = puttogether(; y = y)
