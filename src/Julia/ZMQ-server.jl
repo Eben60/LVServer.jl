@@ -95,11 +95,14 @@ function server_0mq4lv(fns=(;); initOK=false)
                 try
                     pr = parse_REQ(bytesreceived)
                     fn = pr.fun2call
-                    if fn == :external_fns
+                    if fn == :external_fns # why this??
                         f = external_fns
+                        println("called external_fns")
                     elseif haskey(fns, fn)
+                        println("called fns by key")
                         f = fns[fn]
                     else
+                        println("called eval")
                         f = eval(fn)
                     end
                     y = f(; pr.args...)
