@@ -102,7 +102,7 @@ function server_0mq4lv(fns=(;); initOK=false)
                         println("called fns by key")
                         f = fns[fn]
                     else
-                        println("called eval")
+                        println("called eval", fn)
                         f = eval(fn)
                     end
                     y = f(; pr.args...)
