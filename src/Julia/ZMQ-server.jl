@@ -1,6 +1,7 @@
 include("./ZMQ_utils.jl")
 include("./test_functions.jl")
-# include("./user_functions.jl")
+
+builtin_fns = merge(utilfunctions, testfunctions)
 
 """
     server_0mq4lv(fns=(;); initOK=false)
@@ -22,11 +23,13 @@ function server_0mq4lv(fns=(;); initOK=false)
     socket = Socket(context, REP)
     ZMQ.bind(socket, "tcp://*:5555")
     version = string(PkgVersion.Version(Jl_0mq_4Labview))
-    if isempty(fns)
-        fnlist = "built-in test functions only"
-    else
-        fnlist = join(["built-in test functions", keys(fns)...], ", ")
-    end
+    fns = merge(builtin_fns, fns)
+    fnlist = keys(fns)
+    # if isempty(fns)
+    #     fnlist = "built-in test functions only"
+    # else
+        # fnlist = join(["built-in test functions", keys(fns)...], ", ")
+    # end
 
     global scriptexists
     global scriptOK
@@ -89,13 +92,17 @@ function server_0mq4lv(fns=(;); initOK=false)
                 try
                     pr = parse_REQ(bytesreceived)
                     fn = pr.fun2call
-                    if haskey(fns, fn)
-                        f = fns[fn]
-                    else
-                        f = eval(fn)
-                        # TODO used only to call version_this_pkg()
-                        # add it to (fns) and remove eval!
-                    end
+
+                    f = fns[fn]
+
+                    # if haskey(fns, fn)
+                    #     f = fns[fn]
+                    # else
+                    #     f = eval(fn)
+                    #     # TODO used only to call version_this_pkg()
+                    #     # add it to (fns) and remove eval!
+                    # end
+
                     y = f(; pr.args...)
                     response = puttogether(; y = y)
                 catch excep

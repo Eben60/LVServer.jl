@@ -2,7 +2,7 @@
     loopback(; showversion=false, idx=-1, kwargs...)
 
 Return all "binary-encoded" arrays without change. For a positive `idx` also return
-a (JSON-encoded) element of one of these arrays. Used for testing.
+a (JSON-encoded) element of one of these arrays. Can be used for testing.
 """
 function loopback(; showversion=false, idx=-1, kwargs...)
     # showversion kwarg included for compatibility, but ignored
@@ -38,3 +38,5 @@ function loopback(; showversion=false, idx=-1, kwargs...)
 
     return (; elem, bigarrs)
 end
+
+testfunctions = (; loopback)
