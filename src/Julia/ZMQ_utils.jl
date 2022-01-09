@@ -251,3 +251,5 @@ function version_this_pkg()
     v = PkgVersion.Version(Jl_0mq_4Labview)
     return (; major=v.major, minor=v.minor, patch=v.patch)
 end
+
+utilfunctions = (; version_this_pkg)
