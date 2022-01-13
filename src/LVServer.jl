@@ -1,4 +1,4 @@
-module Jl_0mq_4Labview
+module LVServer
 
 using ZMQ, JSON3, ImageCore, Colors, PkgVersion
 

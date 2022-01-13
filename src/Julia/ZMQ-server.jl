@@ -22,7 +22,7 @@ function server_0mq4lv(fns=(;); initOK=false)
     context = Context()
     socket = Socket(context, REP)
     ZMQ.bind(socket, "tcp://*:5555")
-    version = string(PkgVersion.Version(Jl_0mq_4Labview))
+    version = string(PkgVersion.Version(LVServer))
     fns = merge(builtin_fns, fns)
     fnlist = keys(fns)
     # if isempty(fns)
@@ -43,7 +43,7 @@ function server_0mq4lv(fns=(;); initOK=false)
     end
 
     if initOK
-        println("starting ZMQ server, Julia for LabVIEW: Jl_0mq_4Labview v=$version")
+        println("starting ZMQ server, Julia for LabVIEW: LVServer v=$version")
         println("available functions:")
         println(fnlist)
     else
