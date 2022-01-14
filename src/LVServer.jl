@@ -14,7 +14,7 @@ scriptexcep = nothing
 # see setswapbytes()
 swapbytes = :undefined
 
-export server_0mq4lv, get_script_path, setglobals, get_LVlib_path # functions
+export server_0mq4lv, get_script_path, setglobals, setswapbytes, get_LVlib_path # functions
 export scriptexists, scriptOK, scriptexcep # global variables
 
 end
