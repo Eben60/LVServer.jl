@@ -22,6 +22,7 @@ function setglobals(; isOK, extant=scriptexists, excpn = nothing)
     return nothing
 end
 
+
 function setswapbytes(swp::Bool)
     global swapbytes
     if swp
