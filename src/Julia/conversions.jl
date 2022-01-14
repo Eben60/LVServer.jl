@@ -64,8 +64,10 @@ function emptyarr(arrdims, numtype)
 end
 
 function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
+    println("we are here")
     nt = Symbol(numtype)
     numtype = eval(nt)
+    @show numtype
 
     if nofbytes == 0 || any(arrdims.==0)
         return emptyarr(arrdims, numtype)
@@ -82,8 +84,10 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
         elseif condition :swap
             if numtype in SUPPORTED_REALS
                 sz = sizeof(numtype)
+                @show sz
             elseif numtype in SUPPORTED_COMPLEX
                 sz = sizeof(numtype)÷2
+                @show sz
             end
             reorder_bytes(bin_data, sz)
             nums = collect(reinterpret(numtype, bin_data))
