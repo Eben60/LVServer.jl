@@ -79,6 +79,7 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
         global SUPPORTED_REALS
         global SUPPORTED_COMPLEX
         global swapbytes
+        @show swapbytes
         if swapbytes == :noswap
             nums = collect(reinterpret(numtype, bin_data))
         elseif condition :swap
