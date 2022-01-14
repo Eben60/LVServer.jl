@@ -82,7 +82,7 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
         @show swapbytes
         if swapbytes == :noswap
             nums = collect(reinterpret(numtype, bin_data))
-        elseif condition :swap
+        elseif swapbytes == :swap
             if numtype in SUPPORTED_REALS
                 sz = sizeof(numtype)
                 @show sz
