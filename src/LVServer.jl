@@ -11,7 +11,7 @@ include("./Julia/ZMQ-server.jl")
 scriptexists = false
 scriptOK = false
 scriptexcep = nothing
-
+# see setswapbytes()
 swapbytes = :undefined
 
 export server_0mq4lv, get_script_path, setglobals, get_LVlib_path # functions
