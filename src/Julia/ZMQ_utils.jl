@@ -30,7 +30,6 @@ function setswapbytes(swp::Bool)
     else
         swapbytes = :noswap
     end
-    @show swapbytes
     return nothing
 end
 
