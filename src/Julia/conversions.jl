@@ -86,7 +86,7 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
                 sz = sizeof(numtype)÷2
             end
             bin_data = reorder_bytes(bin_data, sz)
-            nums = collect(reinterpret(numtype, bin_data))
+            nums = collect(reinterpret(numtype, bin_data)) # TODO is collect necessary here??
         else
             error("bytes order must be set before starting further communication")
         end
@@ -100,9 +100,9 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
         nums = fromrowmajor(nums, arrdims)
     end
 
-    if eltype(nums) in SUPPORTED_COMPLEX
-        nums .= cmplxswap.(nums)
-    end
+    # if eltype(nums) in SUPPORTED_COMPLEX
+    #     nums .= cmplxswap.(nums)
+    # end
     return nums
 end
 
