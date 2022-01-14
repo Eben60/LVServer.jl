@@ -1,10 +1,12 @@
-SUPPORTED_REALS = (
+include("./reorder_bytes.jl")
+
+const SUPPORTED_REALS = (
     Float32, Float64,
     Int8, Int16, Int32, Int64,
     UInt8, UInt16, UInt32, UInt64,
     Bool,
     )
-SUPPORTED_COMPLEX = (ComplexF32, ComplexF64)
+const SUPPORTED_COMPLEX = (ComplexF32, ComplexF64)
 
 function int2bytar(i::Int; i_type = UInt32)
     if i_type == Bool
@@ -24,9 +26,10 @@ end
 
 function numtypestring(ar)
     t = eltype(ar)
-    realtypes =
-        (Float32, Float64, Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Bool)
-    if t in realtypes
+    # realtypes =
+    #     (Float32, Float64, Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Bool)
+    global SUPPORTED_REALS
+    if t in SUPPORTED_REALS
         return string(t)
     elseif t == ComplexF32  # special cases, as string(ComplexF32) is "Complex{Float32}"
         return "ComplexF32"
@@ -71,7 +74,24 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
     bin_data = bin_data[start:start+nofbytes-1]
 
     if numtype != Bool
-        nums = collect(reinterpret(numtype, bin_data))
+        global SUPPORTED_REALS
+        global SUPPORTED_COMPLEX
+        global swapbytes
+        if swapbytes == :noswap
+            nums = collect(reinterpret(numtype, bin_data))
+        elseif condition :swap
+            if numtype in SUPPORTED_REALS
+                sz = sizeof(numtype)
+            elseif numtype in SUPPORTED_COMPLEX
+                sz = sizeof(numtype)÷2
+            end
+            reorder_bytes(bin_data, sz)
+            nums = collect(reinterpret(numtype, bin_data))
+        else
+            error("bytes order must be set bevore starting further communication")
+        end
+
+
     else
         nums = Bool.(bin_data)
     end
@@ -80,7 +100,7 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
         nums = fromrowmajor(nums, arrdims)
     end
 
-    if eltype(nums) in (ComplexF32, ComplexF64)
+    if eltype(nums) in SUPPORTED_COMPLEX
         nums .= cmplxswap.(nums)
     end
     return nums
