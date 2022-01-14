@@ -30,6 +30,8 @@ function setswapbytes(swp::Bool)
     else
         swapbytes = :noswap
     end
+    @show swapbytes
+    return nothing
 end
 
 
@@ -265,4 +267,4 @@ function version_this_pkg()
     return (; major=v.major, minor=v.minor, patch=v.patch)
 end
 
-utilfunctions = (; version_this_pkg)
+utilfunctions = (; version_this_pkg, setswapbytes)
