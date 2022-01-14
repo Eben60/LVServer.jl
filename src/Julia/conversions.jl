@@ -85,10 +85,10 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
             elseif numtype in SUPPORTED_COMPLEX
                 sz = sizeof(numtype)÷2
             end
-            reorder_bytes(bin_data, sz)
+            bin_data = reorder_bytes(bin_data, sz)
             nums = collect(reinterpret(numtype, bin_data))
         else
-            error("bytes order must be set bevore starting further communication")
+            error("bytes order must be set before starting further communication")
         end
 
 
