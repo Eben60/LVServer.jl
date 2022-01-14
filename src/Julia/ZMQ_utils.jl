@@ -22,6 +22,18 @@ function setglobals(; isOK, extant=scriptexists, excpn = nothing)
     return nothing
 end
 
+function setswapbytes(swp::Bool)
+    global swapbytes
+    if swp
+        swapbytes = :swap
+    else
+        swapbytes = :noswap
+    end
+end
+
+
+
+
 """
     get_script_path(p)
 
