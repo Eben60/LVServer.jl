@@ -1,4 +1,4 @@
-The LVServer package is licensed under the MIT "Expat" License:
+The LVServer.jl package is licensed under the MIT "Expat" License:
 
 Copyright (c) 2020: Eben60.
 
