@@ -26,9 +26,6 @@ end
 
 function numtypestring(ar)
     t = eltype(ar)
-    # realtypes =
-    #     (Float32, Float64, Int8, Int16, Int32, Int64,
-    #      UInt8, UInt16, UInt32, UInt64, Bool)
     global SUPPORTED_REALS
     if t in SUPPORTED_REALS
         return string(t)
@@ -173,7 +170,6 @@ function nums2ByteArr(nums)
     if eltype(nums) == Bool
         return UInt8.(nums)
     else
-        # return collect(reinterpret(UInt8, nums))
         return reorder_bytes(nums)
     end
 end
