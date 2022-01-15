@@ -25,7 +25,7 @@ function server_0mq4lv(fns=(;); initOK=false)
     version = string(PkgVersion.Version(LVServer))
     fns = merge(builtin_fns, fns)
     fnlist = keys(fns)
-    
+
     push!(fnlist, :available_fns)
     available_fns() = fnlist
 
@@ -92,14 +92,6 @@ function server_0mq4lv(fns=(;); initOK=false)
                     fn = pr.fun2call
 
                     f = fns[fn]
-
-                    # if haskey(fns, fn)
-                    #     f = fns[fn]
-                    # else
-                    #     f = eval(fn)
-                    #     # TODO used only to call version_this_pkg()
-                    #     # add it to (fns) and remove eval!
-                    # end
 
                     y = f(; pr.args...)
                     response = puttogether(; y = y)
