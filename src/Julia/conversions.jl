@@ -56,10 +56,10 @@ function fromcolmajor(v, arrdims)
     return arr
 end
 
-function cmplxswap(c::Complex)
-    c = imag(c) + real(c)im
-    return c
-end
+# function cmplxswap(c::Complex)
+#     c = imag(c) + real(c)im
+#     return c
+# end
 
 function emptyarr(arrdims, numtype)
     Array{numtype}(undef, zeros(Int, length(arrdims))...)
@@ -92,8 +92,6 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
         else
             error("bytes order must be set before starting further communication")
         end
-
-
     else
         nums = Bool.(bin_data)
     end
@@ -102,9 +100,6 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
         nums = fromrowmajor(nums, arrdims)
     end
 
-    # if eltype(nums) in SUPPORTED_COMPLEX
-    #     nums .= cmplxswap.(nums)
-    # end
     return nums
 end
 
@@ -178,7 +173,8 @@ function nums2ByteArr(nums)
     if eltype(nums) == Bool
         return UInt8.(nums)
     else
-        return collect(reinterpret(UInt8, nums))
+        # return collect(reinterpret(UInt8, nums))
+        return reorder_bytes(nums)
     end
 end
 
@@ -205,9 +201,9 @@ function data2bin(arrdata, kwarg_name)
     bdd = BinDescr()
     bdd.kwarg_name = kwarg_name
     bdd.numtype = numtypestring(arrdata)
-    if eltype(arrdata) <: Complex
-        arrdata .= cmplxswap.(arrdata)
-    end
+    # if eltype(arrdata) <: Complex
+    #     arrdata .= cmplxswap.(arrdata)
+    # end
     bdd.arrdims = collect(size(arrdata))
     bd = nums2ByteArr(arrdata)
     bdd.nofbytes = length(bd)
