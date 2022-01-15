@@ -28,6 +28,7 @@ function server_0mq4lv(fns=(;); initOK=false)
 
     fnlist = tuple(:available_fns, fnlist...)
     available_fns() = fnlist
+    fns = merge((;available_fns), fns)  # there could be a more elegant way to get around a recursion
 
     global scriptexists
     global scriptOK
