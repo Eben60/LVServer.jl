@@ -26,7 +26,7 @@ function server_0mq4lv(fns=(;); initOK=false)
     fns = merge(builtin_fns, fns)
     fnlist = keys(fns)
 
-    push!(fnlist, :available_fns)
+    fnlist = tuple(:available_fns, fnlist...)
     available_fns() = fnlist
 
     global scriptexists
