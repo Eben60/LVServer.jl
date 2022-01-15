@@ -23,12 +23,9 @@ function server_0mq4lv(fns=(;); initOK=false)
     socket = Socket(context, REP)
     ZMQ.bind(socket, "tcp://*:5555")
     version = string(PkgVersion.Version(LVServer))
-    fns = merge(builtin_fns, fns)
+    external_fns() = (;ext_fns=keys(fns))
+    fns = merge(builtin_fns, (;external_fns), fns)
     fnlist = keys(fns)
-
-    fnlist = tuple(:available_fns, fnlist...)
-    available_fns() = fnlist
-    fns = merge((;available_fns), fns)  # there could be a more elegant way to get around a recursion
 
     global scriptexists
     global scriptOK
