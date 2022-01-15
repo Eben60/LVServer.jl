@@ -24,8 +24,8 @@ function server_0mq4lv(fns=(;); initOK=false)
     ZMQ.bind(socket, "tcp://*:5555")
     version = string(PkgVersion.Version(LVServer))
     external_fns() = (;ext_fns=keys(fns))
-    fns = merge(builtin_fns, (;external_fns), fns)
-    fnlist = keys(fns)
+    fns_all = merge(builtin_fns, (;external_fns), fns)
+    fnlist = keys(fns_all)
 
     global scriptexists
     global scriptOK
@@ -89,7 +89,7 @@ function server_0mq4lv(fns=(;); initOK=false)
                     pr = parse_REQ(bytesreceived)
                     fn = pr.fun2call
 
-                    f = fns[fn]
+                    f = fns_all[fn]
 
                     y = f(; pr.args...)
                     response = puttogether(; y = y)
