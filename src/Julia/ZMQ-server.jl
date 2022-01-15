@@ -25,11 +25,9 @@ function server_0mq4lv(fns=(;); initOK=false)
     version = string(PkgVersion.Version(LVServer))
     fns = merge(builtin_fns, fns)
     fnlist = keys(fns)
-    # if isempty(fns)
-    #     fnlist = "built-in test functions only"
-    # else
-        # fnlist = join(["built-in test functions", keys(fns)...], ", ")
-    # end
+    
+    push!(fnlist, :available_fns)
+    available_fns() = fnlist
 
     global scriptexists
     global scriptOK
