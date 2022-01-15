@@ -27,7 +27,8 @@ end
 function numtypestring(ar)
     t = eltype(ar)
     # realtypes =
-    #     (Float32, Float64, Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64, Bool)
+    #     (Float32, Float64, Int8, Int16, Int32, Int64,
+    #      UInt8, UInt16, UInt32, UInt64, Bool)
     global SUPPORTED_REALS
     if t in SUPPORTED_REALS
         return string(t)
@@ -36,7 +37,8 @@ function numtypestring(ar)
     elseif t == ComplexF64
         return "ComplexF64"
     else
-        return throw(DomainError("$(string(t)) is not a supported numeric type for exchange with LabVIEW: consider converting array first."))
+        return throw(
+        DomainError("$(string(t)) is not a supported numeric type for exchange with LabVIEW: consider converting array first."))
     end
 end
 
@@ -76,10 +78,10 @@ function bin2num(; bin_data, nofbytes, start, arrdims, numtype)
     if numtype != Bool
         global SUPPORTED_REALS
         global SUPPORTED_COMPLEX
-        global swapbytes
-        if swapbytes == :noswap
+        global reorderbytes
+        if reorderbytes == :noreorder
             nums = collect(reinterpret(numtype, bin_data))
-        elseif swapbytes == :swap
+        elseif reorderbytes == :reorder
             if numtype in SUPPORTED_REALS
                 sz = sizeof(numtype)
             elseif numtype in SUPPORTED_COMPLEX

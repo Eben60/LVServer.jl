@@ -23,12 +23,12 @@ function setglobals(; isOK, extant=scriptexists, excpn = nothing)
 end
 
 
-function setswapbytes(swp::Bool)
-    global swapbytes
+function setreorderbytes(swp::Bool)
+    global reorderbytes
     if swp
-        swapbytes = :swap
+        reorderbytes = :reorder
     else
-        swapbytes = :noswap
+        reorderbytes = :noreorder
     end
     return nothing
 end
@@ -266,4 +266,4 @@ function version_this_pkg()
     return (; major=v.major, minor=v.minor, patch=v.patch)
 end
 
-utilfunctions = (; version_this_pkg, setswapbytes)
+utilfunctions = (; version_this_pkg, setreorderbytes)

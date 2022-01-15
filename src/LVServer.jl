@@ -11,10 +11,10 @@ include("./Julia/ZMQ-server.jl")
 scriptexists = false
 scriptOK = false
 scriptexcep = nothing
-# see setswapbytes()
-swapbytes = :undefined
+# see setreorderbytes()
+reorderbytes = :undefined
 
-export server_0mq4lv, get_script_path, setglobals, setswapbytes, get_LVlib_path # functions
+export server_0mq4lv, get_script_path, setglobals, setreorderbytes, get_LVlib_path # functions
 export scriptexists, scriptOK, scriptexcep # global variables
 
 end
