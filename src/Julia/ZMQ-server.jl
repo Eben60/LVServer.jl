@@ -23,7 +23,7 @@ function server_0mq4lv(fns=(;); initOK=false)
     socket = Socket(context, REP)
     ZMQ.bind(socket, "tcp://*:5555")
     version = string(PkgVersion.Version(LVServer))
-    external_fns() = (;ext_fns=keys(fns))
+    external_fns() = (;ext_fns=keys(fns), all_fns = keys(fns_all))
     fns_all = merge(builtin_fns, (;external_fns), fns)
     fnlist = keys(fns_all)
 
