@@ -80,24 +80,12 @@ function get_script_path(p="")
     end
 end
 
+
 """
-    get_LVlib_path()
+    StackFrame_to_NamedTuple(fm)
 
-A helper function: return path to the LabVIEW library `LV-Julia_ZMQ-Roundtrip_lib.lvlib`
-
-# Examples
-```julia-repl
-
-julia> using LVServer
-julia> get_LVlib_path()
-C:/_LabView_projects/ZMQ/LVServer.jl/src/LabVIEW
-```
+Convert Error Stack Frame.
 """
-function get_LVlib_path()
-    srcdir = @__DIR__
-    return joinpath(dirname(srcdir), "LabVIEW")
-end
-
 function StackFrame_to_NamedTuple(fm)
     #= StackFrame, see:
     https://docs.julialang.org/en/v1/base/stacktraces/
