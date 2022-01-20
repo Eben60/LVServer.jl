@@ -4,9 +4,7 @@
 Return all "binary-encoded" arrays without change. For a positive `idx` also return
 a (JSON-encoded) element of one of these arrays. Can be used for testing.
 """
-function loopback(; showversion=false, idx=-1, kwargs...)
-    # showversion kwarg included for compatibility, but ignored
-    # TODO remove it later
+function loopback(; idx=-1, kwargs...)
 
     bigarrs = Dict(pairs(kwargs))
 

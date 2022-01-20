@@ -1,3 +1,0 @@
-# LVServer
-
-*Documentation goes here.*
