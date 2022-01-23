@@ -24,13 +24,10 @@ function checkjob(; ticket)
     id = tasks[ticket]
     done = istaskdone(id)
     if !done
-        println("patience!")
         return (; done)
     else
         result = fetch(id)
-        @show done
         pop!(tasks, ticket)
-        @show result
         return (; done, result)
     end
 end
