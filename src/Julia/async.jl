@@ -28,6 +28,7 @@ function checkjob(; ticket)
         return (; done)
     else
         rslt = fetch(id)
+        @show done
         pop!(d, ticket)
         @show rslt
         return (; done=true) #, rslt)
