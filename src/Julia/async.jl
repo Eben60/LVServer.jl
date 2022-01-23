@@ -19,7 +19,7 @@ function asyncall(f; kwargs...)
     return (;ticket)
 end
 
-function checkjob(ticket)
+function checkjob(; ticket)
     global tasks
     id = tasks[ticket]
     done = istaskdone(id)
