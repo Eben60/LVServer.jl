@@ -27,11 +27,11 @@ function checkjob(; ticket)
         println("patience!")
         return (; done)
     else
-        rslt = fetch(id)
+        result = fetch(id)
         @show done
         pop!(tasks, ticket)
         @show rslt
-        return (; done=true) #, rslt)
+        return (; done, result)
     end
 end
 
