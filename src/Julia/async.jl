@@ -2,15 +2,20 @@ import Base.Threads.@spawn
 
 const tasks = Dict{Int, Any}()
 
-function asyncall(f; kwargs...)
+function getticket()
     global tasks
     if isempty(tasks)
-        ticket = 1
+        return 1
     else
-        ticket = maximum(keys(d)) +1
+        return maximum(keys(tasks)) +1
     end
+end
+
+function asyncall(f; kwargs...)
+    global tasks
+    ticket = getticket()
     id = id = @spawn f(; kwargs..)
-    push!(d, ticket=>id)
+    push!(tasks, ticket=>id)
     return (;ticket)
 end
 
