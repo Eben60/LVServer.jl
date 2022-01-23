@@ -1,7 +1,8 @@
 include("./ZMQ_utils.jl")
+include("./async.jl")
 include("./test_functions.jl")
 
-builtin_fns = merge(utilfunctions, testfunctions)
+builtin_fns = merge(utilfunctions, asyncfunctions, testfunctions)
 
 """
     server_0mq4lv(fns=(;); initOK=false)
@@ -84,14 +85,17 @@ function server_0mq4lv(fns=(;); initOK=false)
                 response = puttogether(; err = err, returncode = 3)
             elseif cmnd.command == :ping
                 response = UInt8.([2, PROTOC_V])
-            elseif cmnd.command == :callfun
+            elseif cmnd.command in (:callfun, :async)
                 try
                     pr = parse_REQ(bytesreceived)
                     fn = pr.fun2call
 
                     f = fns_all[fn]
-
-                    y = f(; pr.args...)
+                    if cmnd.command == :callfun
+                        y = f(; pr.args...)
+                    else
+                        y = asyncall(f; pr.args...)
+                    end
                     response = puttogether(; y = y)
                 catch excep
                     err_stack_trace = stacktrace(catch_backtrace())

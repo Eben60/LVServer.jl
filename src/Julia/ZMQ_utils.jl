@@ -202,6 +202,8 @@ function parse_cmnd(b)
         command = :stop
     elseif c == UInt8('c')
         command = :callfun
+    elseif c == UInt8('a')
+        command = :async
     else
         command = :undef
     end
