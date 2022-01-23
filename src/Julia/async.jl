@@ -14,7 +14,7 @@ end
 function asyncall(f; kwargs...)
     global tasks
     ticket = getticket()
-    id = @spawn f(; kwargs..)
+    id = @spawn f(; kwargs...)
     push!(tasks, ticket=>id)
     return (;ticket)
 end
