@@ -30,7 +30,7 @@ function checkjob(; ticket)
         rslt = fetch(id)
         @show rslt
         pop!(d, ticket)
-        return (; done, rslt)
+        return (; done) #, rslt)
     end
 end
 
