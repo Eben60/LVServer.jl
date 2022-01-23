@@ -28,9 +28,9 @@ function checkjob(; ticket)
         return (; done)
     else
         rslt = fetch(id)
-        @show rslt
         pop!(d, ticket)
-        return (; done) #, rslt)
+        @show rslt
+        return (; done=true) #, rslt)
     end
 end
 
