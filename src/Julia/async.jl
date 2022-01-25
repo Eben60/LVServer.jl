@@ -1,12 +1,11 @@
 import Base.Threads.@spawn
 
-# untested
 mutable struct Tasks
     d::Dict{Int, Any}
     c::Int # counter
 end
 
-const tasks = Dict{Int, Any}()
+const tasks = Tasks(Dict(), 1)
 
 function getticket(tasks)
     return tasks.c += 1
