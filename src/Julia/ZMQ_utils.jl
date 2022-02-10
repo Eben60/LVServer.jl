@@ -256,4 +256,33 @@ function version_this_pkg()
     return (; major=v.major, minor=v.minor, patch=v.patch)
 end
 
+function trunc_v(v)
+    return v # TODO maj.min.patch
+end
+
+function check_pkg_versions(lv_info)
+    LabVIEW0_LOCAL_CURRENT = v"0.2.0"
+    LabVIEW0_LOCAL_MIN = v"0.1.0"
+
+    LV_v = VersionNumber(lv_info.LV_v...)
+    LVServer_min = VersionNumber(lv_info.LVServer_min...)
+    LVServer_remote_current = VersionNumber(lv_info.LVServer_current...)
+
+    LVServer_localv = PkgVersion.Version(LVServer)
+
+    @show LV_v LVServer_localv LVServer_min LVServer_remote_current
+
+    LVServer_incompat =  LVServer_localv < LVServer_min
+    LV_incompat = LV_v < LabVIEW0_LOCAL_MIN
+
+    LVServer_OK = LVServer_remote_current == trunc_v(LVServer_localv)
+    LV_OK = trunc_v(LabVIEW0_LOCAL_CURRENT) == LV_v
+
+
+    return nothing
+end
+
+# lvnt = (; LV_v=(major=1, minor=2, patch=3), LVServer_current=(major=4, minor=5, patch=6), LVServer_min=(major=0, minor=3, patch=0))
+
+
 utilfunctions = (; version_this_pkg, setreorderbytes)
