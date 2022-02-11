@@ -286,4 +286,4 @@ end
 # lvjs = JSON3.write(lvnt);
 # lvnt1 = lvnt1=JSON3.read(lvjs);
 
-utilfunctions = (; version_this_pkg, setreorderbytes)
+utilfunctions = (; version_this_pkg, setreorderbytes, check_pkg_versions)
