@@ -260,13 +260,13 @@ function trunc_v(v)
     return v # TODO maj.min.patch
 end
 
-function check_pkg_versions(lv_info)
+function check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
     LabVIEW0_LOCAL_CURRENT = v"0.2.0"
     LabVIEW0_LOCAL_MIN = v"0.1.0"
 
-    LV_v = VersionNumber(lv_info.LV_v...)
-    LVServer_min = VersionNumber(lv_info.LVServer_min...)
-    LVServer_remote_current = VersionNumber(lv_info.LVServer_current...)
+    LV_v = VersionNumber(NamedTuple(LV_v)...)
+    LVServer_min = VersionNumber(NamedTuple(LVServer_min)...)
+    LVServer_remote_current = VersionNumber(NamedTuple(LVServer_current)...)
 
     LVServer_localv = PkgVersion.Version(LVServer)
 
@@ -282,7 +282,8 @@ function check_pkg_versions(lv_info)
     return nothing
 end
 
-# lvnt = (; LV_v=(major=1, minor=2, patch=3), LVServer_current=(major=4, minor=5, patch=6), LVServer_min=(major=0, minor=3, patch=0))
-
+# lvnt = (; LV_v=(major=1, minor=2, patch=3), LVServer_current=(major=4, minor=5, patch=6), LVServer_min=(major=0, minor=3, patch=0));
+# lvjs = JSON3.write(lvnt);
+# lvnt1 = lvnt1=JSON3.read(lvjs);
 
 utilfunctions = (; version_this_pkg, setreorderbytes)
