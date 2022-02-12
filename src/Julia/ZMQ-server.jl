@@ -1,3 +1,4 @@
+include("./version_check.jl")
 include("./ZMQ_utils.jl")
 include("./async.jl")
 include("./test_functions.jl")
