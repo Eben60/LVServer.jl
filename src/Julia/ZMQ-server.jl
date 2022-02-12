@@ -1,9 +1,9 @@
 include("./version_check.jl")
 include("./ZMQ_utils.jl")
-include("./async.jl")
+# include("./async.jl")
 include("./test_functions.jl")
 
-builtin_fns = merge(utilfunctions, testfunctions, versionfunctions, asyncfunctions)
+builtin_fns = merge(utilfunctions, testfunctions, versionfunctions) #, asyncfunctions)
 
 """
     server_0mq4lv(fns=(;); initOK=false)
@@ -24,7 +24,7 @@ function server_0mq4lv(fns=(;); initOK=false)
     function available_fns()
         return (;ext_fns=keys(fns), all_fns = keys(fns_all))
     end
-    
+
     context = Context()
     socket = Socket(context, REP)
     ZMQ.bind(socket, "tcp://*:5555")
