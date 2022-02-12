@@ -261,8 +261,6 @@ function trunc_v(v)
 end
 
 function check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
-    LabVIEW0_LOCAL_CURRENT = v"0.3.0"
-    LabVIEW0_LOCAL_MIN = v"0.2.0"
 
     LV_v = VersionNumber(NamedTuple(LV_v)...)
     LVServer_min = VersionNumber(NamedTuple(LVServer_min)...)
@@ -284,7 +282,7 @@ function check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
     end
 
     if LV_incompat
-        err_msg = "The version of LabVIEW0 client (or of currently used LV2Julia_core.lvlib) is $LV_v. \
+        err_msg = "The version of LabVIEW0 client (or of the currently used LV2Julia_core.lvlib) is $LV_v. \
         At least $LabVIEW0_LOCAL_MIN is expected by LVServer package version on this Julia server"
     end
 
@@ -296,16 +294,17 @@ function check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
     if !LVServer_OK
         warn_msg = "The LVServer package version on this Julia server is $LVServer_localv. \
         According to LabVIEW0 client, $LVServer_remote_current is available, please consider LVServer update."
-
     end
 
     if !LV_OK
-        warn_msg = "The version of LabVIEW0 client (or of currently used LV2Julia_core.lvlib) is $LV_v. \
+        warn_msg = "The version of LabVIEW0 client (or of the currently used LV2Julia_core.lvlib) is $LV_v. \
         According to LVServer package on this Julia server, $LabVIEW0_LOCAL_CURRENT  is available, \
         please consider LabVIEW0 update"
     end
 
-    if !(LVServer_OK & LV_OK)
+    all_current = (LVServer_OK & LV_OK)
+
+    if !all_current
         @warn warn_msg # for local display on the server
     end
 
