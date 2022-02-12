@@ -6,8 +6,8 @@ using ZMQ, JSON3, ImageCore, Colors, PkgVersion
 const PROTOC_V = 0x01
 
 # update these constants on update of any of the packages!
-const LabVIEW0_LOCAL_CURRENT = v"0.3.0"
-const LabVIEW0_LOCAL_MIN = v"0.2.0"
+const LabVIEW0_LOCAL_CURRENT = v"0.1.1"
+const LabVIEW0_LOCAL_MIN = v"0.1.0"
 
 include("./Julia/ZMQ-server.jl")
 

@@ -5,9 +5,25 @@ function version_this_pkg()
 end
 
 function trunc_v(v)
-    return VersionNumber(v.major, v.minor, v.patch) # v # TODO maj.min.patch
+    return VersionNumber(v.major, v.minor, v.patch)
 end
 
+"""
+    check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
+
+Compare the (LV) client and (Julia) server package software versions. \
+Error on incompatible versions, warn if not the most recent version known to the opposite side.
+# Arguments
+- `LV_v`: version of `LabVIEW0` on the client as reported by `LV2Julia_core.lvlib`
+- `LVServer_current`: most current `LVServer` version known to `LabVIEW0`/`LV2Julia_core.lvlib`
+- `LVServer_min`: the least `LVServer` version compatible with the `LabVIEW0`/`LV2Julia_core.lvlib` client
+# Examples
+```julia-repl
+
+julia> lvnt = (; LV_v=(major=0, minor=2, patch=1), LVServer_current=(major=1, minor=5, patch=6), LVServer_min=(major=0, minor=2, patch=0));
+julia> check_pkg_versions(lvnt...)
+```
+"""
 function check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
 
     LV_v = VersionNumber(NamedTuple(LV_v)...)
