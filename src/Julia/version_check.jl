@@ -21,7 +21,7 @@ Error on incompatible versions, warn if not the most recent version known to the
 ```julia-repl
 
 julia> lvnt = (; LV_v=(major=0, minor=2, patch=1), LVServer_current=(major=1, minor=5, patch=6), LVServer_min=(major=0, minor=2, patch=0));
-julia> check_pkg_versions(lvnt...)
+julia> check_pkg_versions(; lvnt...)
 ```
 """
 function check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
@@ -32,7 +32,7 @@ function check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
 
     LVServer_localv = PkgVersion.Version(LVServer)
 
-    @show LV_v LVServer_localv LVServer_min LVServer_remote_current
+    # @show LV_v LVServer_localv LVServer_min LVServer_remote_current
 
     LVServer_incompat =  LVServer_localv < LVServer_min
     LV_incompat = LV_v < LabVIEW0_LOCAL_MIN
@@ -74,8 +74,22 @@ function check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
     return (;all_current, LVServer_v=(; major=v.major, minor=v.minor, patch=v.patch))
 
 end
-
-# lvnt_err = (; LV_v=(major=0, minor=1, patch=3), LVServer_current=(major=4, minor=5, patch=6), LVServer_min=(major=0, minor=3, patch=0));
-# lvnt = (; LV_v=(major=0, minor=2, patch=1), LVServer_current=(major=4, minor=5, patch=6), LVServer_min=(major=0, minor=2, patch=0));
+# const LabVIEW0_LOCAL_CURRENT = v"0.1.1"
+# const LabVIEW0_LOCAL_MIN = v"0.1.0"
+# version = "0.2.2"
+#
+# lvnt_e1 = (; LV_v=(major=0, minor=1, patch=1), LVServer_current=(major=4, minor=5, patch=6), LVServer_min=(major=1, minor=3, patch=0));
+# LVServer below min
+#
+# lvnt_e2 = (; LV_v=(major=0, minor=0, patch=3), LVServer_current=(major=0, minor=2, patch=2), LVServer_min=(major=0, minor=2, patch=0));
+# LabVIEW0 client below min
+#
+# lvnt_w1 = (; LV_v=(major=0, minor=1, patch=0), LVServer_current=(major=0, minor=2, patch=1), LVServer_min=(major=0, minor=2, patch=0));
+# LabVIEW0 client not the most current
+#
+# lvnt_w2 = (; LV_v=(major=0, minor=1, patch=1), LVServer_current=(major=0, minor=2, patch=5), LVServer_min=(major=0, minor=2, patch=0));
+# LVServer not the most current
+#
+# lvnt_ok = (; LV_v=(major=0, minor=1, patch=1), LVServer_current=(major=0, minor=2, patch=2), LVServer_min=(major=0, minor=2, patch=0));
 # lvjs = JSON3.write(lvnt);
 # lvnt1 = lvnt1=JSON3.read(lvjs);
