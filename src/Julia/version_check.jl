@@ -37,8 +37,8 @@ function check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
     LVServer_incompat =  LVServer_localv < LVServer_min
     LV_incompat = LV_v < LabVIEW0_LOCAL_MIN
 
-    LVServer_OK = LVServer_remote_current == trunc_v(LVServer_localv)
-    LV_OK = trunc_v(LabVIEW0_LOCAL_CURRENT) == LV_v
+    LVServer_OK = trunc_v(LVServer_localv) >= LVServer_remote_current
+    LV_OK = LV_v >= trunc_v(LabVIEW0_LOCAL_CURRENT)
 
     if LVServer_incompat
         err_msg = "The LVServer package version on this Julia server is $LVServer_localv. \
@@ -72,8 +72,11 @@ function check_pkg_versions(;LV_v, LVServer_current, LVServer_min)
     end
     v = LVServer_localv
     return (;all_current, LVServer_v=(; major=v.major, minor=v.minor, patch=v.patch))
-
 end
+
+versionfunctions = (; version_this_pkg, check_pkg_versions,)
+
+
 # const LabVIEW0_LOCAL_CURRENT = v"0.1.1"
 # const LabVIEW0_LOCAL_MIN = v"0.1.0"
 # version = "0.2.2"

@@ -3,7 +3,7 @@ include("./ZMQ_utils.jl")
 include("./async.jl")
 include("./test_functions.jl")
 
-builtin_fns = merge(utilfunctions, asyncfunctions, testfunctions)
+builtin_fns = merge(utilfunctions, testfunctions, versionfunctions, asyncfunctions)
 
 """
     server_0mq4lv(fns=(;); initOK=false)
@@ -21,11 +21,15 @@ julia> server_0mq4lv((;foo=foo, bar, baz))
 """
 function server_0mq4lv(fns=(;); initOK=false)
 
+    function available_fns()
+        return (;ext_fns=keys(fns), all_fns = keys(fns_all))
+    end
+    
     context = Context()
     socket = Socket(context, REP)
     ZMQ.bind(socket, "tcp://*:5555")
     version = string(PkgVersion.Version(LVServer))
-    available_fns() = (;ext_fns=keys(fns), all_fns = keys(fns_all))
+
     fns_all = merge(builtin_fns, (;available_fns), fns)
     fnlist = keys(fns_all)
 

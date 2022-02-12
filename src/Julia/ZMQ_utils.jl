@@ -252,4 +252,4 @@ function parse_REQ(b)
 end
 
 
-utilfunctions = (; version_this_pkg, check_pkg_versions, setreorderbytes)
+utilfunctions = (; setreorderbytes)
